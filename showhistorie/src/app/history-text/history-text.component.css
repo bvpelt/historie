@@ -1,0 +1,11 @@
+.headertext {
+  color: lightgray;
+}
+
+.valid {
+  color: green;
+}
+
+.invalid {
+  color: red;
+}

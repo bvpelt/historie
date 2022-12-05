@@ -1,0 +1,18 @@
+<div class="input-group">
+  <div class="container">
+    <div class="row ">
+      <div class="col headertext">
+        {{headertext}}
+        </div>
+        <div [ngClass]="valid.class">
+          {{valid.text}}
+        </div>
+      </div>
+    <div class="row">
+      <textarea type="text" [(ngModel)]="text" (keyup)="onKey(text)"></textarea>
+    </div>
+    <div class="row">
+      <button type="button" (click)="drawit()">Show</button>
+    </div>
+  </div>
+</div>
