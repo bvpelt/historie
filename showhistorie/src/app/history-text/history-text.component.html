@@ -9,7 +9,7 @@
         </div>
       </div>
     <div class="row">
-      <textarea type="text" [(ngModel)]="text" (keyup)="onKey(text)"></textarea>
+      <textarea type="text" class="form-control z-depth-1" placeholder="Define timelines" rows="20" [(ngModel)]="text" (keyup)="onKey(text)"></textarea>
     </div>
     <div class="row">
       <button type="button" (click)="drawit()">Show</button>
