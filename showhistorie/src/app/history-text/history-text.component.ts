@@ -47,6 +47,9 @@ export class HistoryTextComponent implements OnInit {
         var timeLine: TimeLine = textToTimeLine(lines[i]);
         isValid = (isValid && validLine(lines[i]));
         this.messageService.add('app-history-text validate: check line - ' + lines[i] + ' result: ' + isValid);
+        if (isValid == false) {
+          break;
+        }
       }
       /*
       lines.forEach(function (value) {
@@ -106,9 +109,10 @@ function validDate(value: string): boolean {
 
   // check if specified value matches YYYY-MM-DD
   valid = (value.length == 10);
-  if (valid) {
-    const regExp: RegExp = new RegExp('^\d{4}-\d{2}-\d{2}$');
+  if (valid == true) {
+    const regExp: RegExp = RegExp('^\\d{4}-\\d{2}-\\d{2}$');
     valid = regExp.test(value);
+    console.log("valid: " + valid);
   }
   return valid;
 }
@@ -117,9 +121,9 @@ function validDateTime(value: string): boolean {
   var valid: boolean = false;
 
   // check if specified value matches YYYY-MM-DD
-  valid = (value.length == 10);
-  if (valid) {
-    const regExp: RegExp = new RegExp('^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(.\d{1,6})?Z$');
+  valid = (value.length >= 10);
+  if (valid == true) {
+    const regExp: RegExp = RegExp('^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(.\\d{1,6})?Z$');
     valid = regExp.test(value);
   }
   return valid;
@@ -180,11 +184,31 @@ function validLine(value: string): boolean {
   // startgeldigheid is mandatory
   if (isValid == true) {
     isValid = (isValid && items[0].length > 0);
-  }
+    if (isValid == true) {
+      isValid = (isValid && validDate(items[0].trim()));
+    }
 
-  // beginregistratie is mandatory
-  if (isValid == true) {
-    isValid = (isValid && items[3].length > 0);
+    // eindgeldigheid optional
+    if (items[1].length > 0) {
+      if (isValid == true) {
+        isValid = (isValid && validDate(items[1].trim()));
+      }
+    }
+
+    // beginregistratie is mandatory
+    if (items[2].length > 0) {
+      if (isValid == true) {
+        isValid = (isValid && validDateTime(items[2].trim()));
+      }
+    }
+
+    // eindregistratie is optional
+    if (items[3].length > 0) {
+      if (isValid == true) {
+        isValid = (isValid && validDateTime(items[3].trim()));
+      }
+    }
+
   }
   return isValid;
 }
