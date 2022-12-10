@@ -4,8 +4,10 @@
 
 .valid {
   color: green;
+  text-align: right;
 }
 
 .invalid {
   color: red;
+  text-align: right;
 }

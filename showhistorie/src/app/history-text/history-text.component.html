@@ -12,7 +12,14 @@
       <textarea type="text" class="form-control z-depth-1" placeholder="Define timelines" rows="20" [(ngModel)]="text" (keyup)="onKey(text)"></textarea>
     </div>
     <div class="row">
-      <button type="button" (click)="drawit()">Show</button>
+      <button type="button" (click)="drawit()" [ngClass]="valid.btclass" [disabled]="valid.isDisabled">Show</button>
+    </div>
+    <div class="row" *ngIf = "showDrawing">
+      <div>
+        <app-bar [timeLines]="sortedTimeLines"></app-bar>
+      </div>
     </div>
   </div>
 </div>
+
+
