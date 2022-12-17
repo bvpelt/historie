@@ -35,3 +35,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 2022-01-02; 2022-02-02; 2022-02-02T08:00:00Z;
 2022-02-02;           ; 2022-02-02T08:00:00Z;
 ```
+
+## References
+- online datetime calculator https://www.timeanddate.com/date/durationresult.html
+  

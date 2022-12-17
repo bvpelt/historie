@@ -56,12 +56,12 @@ export class BarComponent implements OnInit{
       var timeLine: TimeLine[] = data;
       for(let i = 0; i < maxlen; i++) {
         this.messageService.add('app-bar drawBars - ymin: ' + ymin + ' ymax: ' + ymax);
-        if (timeLine[i].startgeldigheid.getMilliseconds() < ymin) {
-          ymin = timeLine[i].startgeldigheid.getMilliseconds();
+        if (timeLine[i].startgeldigheid.getTime() < ymin) {
+          ymin = timeLine[i].startgeldigheid.getTime();
         }
-        if (typeof(timeLine[i].eindgeldigheid) !== undefined) {
-          if (timeLine[i].eindgeldigheid!.getMilliseconds() > ymax) {
-          ymax = timeLine[i].eindgeldigheid!.getMilliseconds();
+        if ((typeof(timeLine[i].eindgeldigheid) !== undefined) && (timeLine[i].eindgeldigheid != null)) {
+          if (timeLine[i].eindgeldigheid!.getTime() > ymax) {
+            ymax = timeLine[i].eindgeldigheid!.getTime();
           }
         }
         this.messageService.add('app-bar drawBars - ymin: ' + ymin + ' ymax: ' + ymax);
@@ -71,7 +71,7 @@ export class BarComponent implements OnInit{
       const x = d3.scaleBand()
       .range([0, this.width])
   //    .domain(data.map(d => d.Framework))
-      .domain(data.map(d => d.beginregistratie.getMilliseconds))
+      .domain(data.map(d => d.beginregistratie.getTime()))
       .padding(0.2);
 
       // Draw the X-axis on the DOM
@@ -97,10 +97,10 @@ export class BarComponent implements OnInit{
       .data(data)
       .enter()
       .append("rect")
-      .attr("x", (d: any) => x(d.beginregistratie))
-      .attr("y", (d: any) => y(d.startgeldigheid))
+      .attr("x", (d: any) => x(d.beginregistratie.getTime()))
+      .attr("y", (d: any) => y(d.startgeldigheid.getTime()))
       .attr("width", x.bandwidth())
-      .attr("height", (d: any) => this.height - y(d.startgeldigheid.getMilliseconds()))
+      .attr("height", (d: any) => this.height - y(d.startgeldigheid.getTime()))
       .attr("fill", "#d04a35");
   }
 }

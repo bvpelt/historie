@@ -44,18 +44,25 @@ export class HistoryTextComponent implements OnInit {
         timeLines.push(timeLine);
         this.messageService.add('app-history-text draw: textToTimeLine - ' + lines[i] + ' result: ' + timeLine);
       }
+
+      this.sortedTimeLines = timeLines.sort((obj1, obj2) => {
+        if (obj1.beginregistratie.getTime() > obj2.beginregistratie.getTime()) {
+          return 1;
+        }
+        if (obj1.beginregistratie.getTime() < obj2.beginregistratie.getTime()) {
+          return -1;
+        }
+        return 0;
+      });
+
+      // add last line to be able to create boxes
+      // last line is
+      // - last registration moment
+      // - top line for each element of geldigheid
+      //
+      // duration of 1 day is added
+      // 1 day is 86400 seconds
     }
-
-    this.sortedTimeLines = timeLines.sort((obj1, obj2) => {
-      if (obj1.beginregistratie.getMilliseconds() > obj2.beginregistratie.getMilliseconds()) {
-        return 1;
-      }
-      if (obj1.beginregistratie.getMilliseconds() < obj2.beginregistratie.getMilliseconds()) {
-        return -1;
-      }
-      return 0;
-    });
-
   }
 
   onKey(event: string) {
